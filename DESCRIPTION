@@ -4,17 +4,18 @@ Version: 0.0.0.9000
 Authors@R: person("Noah", "Peart", email = "noah.v.peart@gmail.com", role = c("aut", "cre"))
 Maintainer: Noah Peart <noah.v.peart@gmail.com>
 Description: Interactively clean/reshape data using shiny.
-Depends: 
+Depends:
     R (>= 3.2.3),
     sync.afs
 License: GPL>=2
 LazyData: true
-Imports: 
+Imports:
     data.table,
     dplyr,
     shinydashboard
 RoxygenNote: 5.0.1
-Collate: 
+Collate:
+    'shinydashboard'
     'shiny'
     'data.table'
     'iclean.R'
