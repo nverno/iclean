@@ -1,21 +1,44 @@
+## Controllers for ../partials/choose_data_ui.R
+## Prefix: df
 
+################################################################################
+##
+##                                 Observers
+##
+################################################################################
 ## Get data
-shiny::observeEvent(input$update, {
-    vals$dat <- if (input$useMasterNames) {
-                    sync.afs::get_data(sync.afs::data_key[filename == input$data, rname],
-                                       dkey=dkey)
-                } else sync.afs::get_data(input$data, dkey=dkey)
+shiny::observeEvent(input$dfUpdate, {
+  rfname <- if (input$dfUseMasterNames) {
+    input$data
+  } else dfkey[filename == input$data, rname]
+  print(rfname)
+  
+  ## Load data into list
+  vals$dfs[[rfname]] <- sync.afs::get_data(rfname, dkey=dfkey)
+  vals$dfActive <- rfname
+  print(head(vals$dfs[[rfname]]))
 })
 
 ## Change b/w R/master file names
-shiny::observeEvent(input$useMasterNames, {
-    if (input$useMasterNames) {
-        choices <- dkey[filetype %in% dtypes, filename]
-        current <- dkey[rname == input$data, filename]
+shiny::observeEvent(input$dfUseMasterNames, {
+  print('master names')
+    if (input$dfUseMasterNames) {
+      choices <- setNames(rfiles, mfiles)
+      current <- mfiles[rfiles == input$data]
     } else {
-        choices <- dkey[filetype %in% dtypes, rname]
-        current <- dkey[filename == input$data, rname]
+      choices <- setNames(rfiles, rfiles)
+      current <- rfiles[mfiles == input$data]
     }
     shiny::updateSelectInput(session, inputId='data', choices=choices, selected=current)
 })
 
+################################################################################
+##
+##                       Output for 'choose_data' tab
+##
+################################################################################
+output$dfStr <- renderPrint({
+  str(vals$dfs[[vals$dfActive]])
+})
+
+output$dfNames <- renderPrint(names(vals$dfs[[vals$dfActive]]))

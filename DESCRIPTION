@@ -10,12 +10,9 @@ Depends:
 License: GPL>=2
 LazyData: true
 Imports:
-    data.table,
-    dplyr,
+    data.table (>= 1.9.6),
+    shiny,
     shinydashboard
 RoxygenNote: 5.0.1
 Collate:
-    'shinydashboard'
-    'shiny'
-    'data.table'
-    'iclean.R'
+    'data_manip.R'
