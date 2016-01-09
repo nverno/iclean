@@ -59,5 +59,5 @@ center_text <- function(words, width, sep=", ", ...) {
 }
 
 ## Testing
-tst <- get_all(rfiles, dfkey)
-lst <- grep_vars("98", tst)
+## tst <- get_all(rfiles, dfkey)
+## lst <- grep_vars("98", tst)
